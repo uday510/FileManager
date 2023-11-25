@@ -30,7 +30,7 @@ exports.uploadFile = async (req, res) => {
 
         // Upload file to AWS S3
         const uploadParams = {
-            Bucket: 'awss3filesbucket',
+            Bucket: 'bucket-name',
             Key: fileName,
             Body: req.file.buffer, 
         };
@@ -79,7 +79,7 @@ exports.deleteFile = async (req, res) => {
         const { fileId } = req.params;
 
         const deleteParams = {
-            Bucket: 'awss3filesbucket',
+            Bucket: 'bucket-name',
             Key: fileId, 
         };
         await s3.deleteObject(deleteParams).promise();
