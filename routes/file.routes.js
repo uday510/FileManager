@@ -4,9 +4,7 @@ const multer = require('multer');
 
 const upload = multer(); // Initialize multer instance
 
-
 module.exports = (app) => {
-
     app.post(
         "/app/api/v1/file",
         upload.single('file'),

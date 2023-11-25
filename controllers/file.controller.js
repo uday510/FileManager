@@ -11,12 +11,10 @@ const s3 = new AWS.S3({
 exports.uploadFile = async (req, res) => {
     // console.clear();
     try {
-        // console.log("Body ", req.body.folderId);
         const folderId = req.body.folderId;
         if (!folderId) {
             return res.status(400).send("folderId is missing.")
         }
-        // console.log("file >>", req.file.buffer);
         const fileName = req.file.originalname;
         const fileSize = req.file.size;
 
@@ -34,14 +32,14 @@ exports.uploadFile = async (req, res) => {
         const uploadParams = {
             Bucket: 'awss3filesbucket',
             Key: fileName,
-            Body: req.file.buffer, // File data from the request
+            Body: req.file.buffer, 
         };
 
         const uploadResult = await s3.upload(uploadParams).promise();
+        console.log("S3 >> ", uploadResult);
         
         // Record file metadata in the database
         const uploadedFile = await fileModel.createFile(fileName, fileSize, folderId, req.userId);
-        console.log(uploadResult);
         res.status(201).send(uploadedFile);
     } catch (error) {
         console.log(error);

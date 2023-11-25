@@ -11,7 +11,7 @@ exports.createFolder = async (req, res) => {
             return res.status(400).send(`Required Fields are missing`);
         }
 
-        const userFolders = await folderModel.getFoldersByUserId(req.user.id);
+        const userFolders = await folderModel.getFoldersByUserId(req.userId);
 
 
         userFolders.forEach(folder => {
@@ -20,7 +20,7 @@ exports.createFolder = async (req, res) => {
             }
         });
 
-        const newFolder = await folderModel.createFolder(name, null, req.user.id);
+        const newFolder = await folderModel.createFolder(name, null, req.userId);
         return res.status(201).json(newFolder);
     } catch (error) {
         console.log(error);
@@ -41,7 +41,7 @@ exports.createSubFolder = async (req, res) => {
             return res.status(400).send(`parent folder does not exists.`);
         }
 
-        const newSubFolder = await folderModel.createFolder(folderName, parentId, req.user.id);
+        const newSubFolder = await folderModel.createFolder(folderName, parentId, req.userId);
         return res.status(201).json(newSubFolder);
     } catch (error) {
         console.log(error);
