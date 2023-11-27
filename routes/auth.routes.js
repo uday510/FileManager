@@ -13,14 +13,4 @@ module.exports = (app) => {
         [authUser.validateSigninRequest], //db calls all in one place
         authController.login
     ); 
-    // app.get(
-    //     "/app/api/v1/ip",
-    //     // [authUser.validateSigninRequest],
-    //     authController.getClientDetails
-    // );
-    // app.get(
-    //     "/app/api/v1/server",
-    //     // [authUser.validateSigninRequest],
-    //     authController.getServerDetails
-    // );
 };

@@ -1,5 +1,6 @@
 const UserModel = require('../models/user.model');
 const jwt = require('jsonwebtoken');
+const SECRET = require('../config/db.config');
 const userModel = new UserModel();
 
 exports.register = async (req, res) => {
@@ -26,8 +27,8 @@ exports.login = async (req, res) => {
             res.status(401).json({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ id: user.id }, 'SECRET', {
-            expiresIn: 6000, // Expires 10 Minutes
+        const token = jwt.sign({ id: user.id }, SECRET, {
+            expiresIn: 600, // Expires 10 Minutes
         });
 
         // Send the response
